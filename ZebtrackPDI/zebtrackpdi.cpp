@@ -389,6 +389,7 @@ void ZebtrackPDI::passar_video(int &atual){
         out << "inicio"<< endl;
         int i=atual;
         video.set(CV_CAP_PROP_POS_FRAMES,i);
+        bool novo=true;
         while(!pause&&i<=maxframe){
             Mat fore;
             Mat drawing = Mat::zeros( fore.size(), CV_8UC3 );
@@ -400,7 +401,7 @@ void ZebtrackPDI::passar_video(int &atual){
             processar.dilatErosion(fore);
             int nframe;
             nframe = video.get(CV_CAP_PROP_POS_FRAMES)-1;
-            processar.find(foresc,drawing,fps,nframe);
+            processar.find(foresc,drawing,fps,nframe,novo);
             //setimage(drawing);
             if (mostrafore == true){
                setimage(foresc);
@@ -409,6 +410,7 @@ void ZebtrackPDI::passar_video(int &atual){
                  setimage(drawing);
             QCoreApplication::processEvents();
             i=i+rate;
+            novo=false;
 //            out  << "i= "<< i <<endl;
             video.set(CV_CAP_PROP_POS_FRAMES,i);
         }
@@ -452,7 +454,7 @@ void ZebtrackPDI::on_back_process_clicked()
     processar.dilatErosion(fore);
     int nframe;
     nframe = video.get(CV_CAP_PROP_POS_FRAMES)-1;
-    processar.find(fore,drawing,fps,nframe);;
+    processar.find(fore,drawing,fps,nframe,false);;
     setimage(drawing);
     }
 
@@ -480,7 +482,7 @@ void ZebtrackPDI::on_next_process_clicked()
     processar.dilatErosion(fore);
     int nframe;
     nframe = video.get(CV_CAP_PROP_POS_FRAMES)-1;
-    processar.find(fore,drawing,fps,nframe);
+    processar.find(fore,drawing,fps,nframe,false);
     setimage(drawing);
     }
 }

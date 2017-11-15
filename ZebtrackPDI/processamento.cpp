@@ -52,6 +52,7 @@ int Process::associate(Point2f posicao_ant, vector<vector<Point> > contours,int 
 }
 
 void Process::displaygraph(int cols, int rows){
+    if(cols!=0){
         Mat myimage = Mat::zeros(rows,cols, CV_8UC3);
         if (posicao.size()>0){
             int myradius=5;
@@ -60,9 +61,10 @@ void Process::displaygraph(int cols, int rows){
         }
         namedWindow("myimage",WINDOW_AUTOSIZE);
         imshow("myimage",myimage);
+    }
 }
 
-void Process::find(Mat fore,Mat drawing,int framesps,int nframe){
+void Process::find(Mat fore,Mat drawing,int framesps,int nframe,bool novo){
     Mat contorno;
     vector<vector<cv::Point> > contours;
 //    vector<Point2f> cm;
@@ -79,7 +81,8 @@ void Process::find(Mat fore,Mat drawing,int framesps,int nframe){
 
     vector<vector<Point> > contours_poly( contours.size() );
     vector<Moments> mu(contours.size());
-
+    if(novo==true)
+        posicao.clear();
 
     if (posicao.empty()==true){
         posicaotmp.x=fore.cols/2;

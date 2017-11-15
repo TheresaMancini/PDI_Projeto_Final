@@ -15,7 +15,7 @@ public:
     void dilatErosion(cv::Mat &fore);
 //    void calculaForeground(cv::Mat &frame, cv::Mat &fundo,int th, bool cor,bool media,cv::Mat var_pb, cv::Mat var_cor, cv::Mat foreground);
     int associate(cv::Point2f posicao_ant,vector<vector<cv::Point> > contours,int max);
-    void find(cv::Mat fore,cv::Mat drawing,int framesps,int nframe);
+    void find(cv::Mat fore,cv::Mat drawing,int framesps,int nframe,bool novo);
     void displaygraph(int cols,int rows);
 
 
